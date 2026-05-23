@@ -351,7 +351,12 @@ def visualize_errors(model, x_test, y_test, class_names, dataset_name, num_error
     print(f"错误样本可视化已保存: {save_path}")
     plt.show()
 
-
+# Optimization experiment configuration
+EXPERIMENT_EPOCHS = 10
+EXPERIMENT_BATCH_SIZE = 64
+DEFAULT_DROPOUT_RATE = 0.5
+DEFAULT_LEARNING_RATE = 0.001
+LOW_LEARNING_RATE = 0.0001
 def compare_optimizations(x_train, y_train, x_val, y_val, x_test, y_test,
                           input_shape, num_classes, class_names):
     """优化对比实验"""
@@ -364,28 +369,58 @@ def compare_optimizations(x_train, y_train, x_val, y_val, x_test, y_test,
     # 实验1：基础模型（无Dropout）
     print("\n【实验1】基础模型（无Dropout）")
     model1 = create_cnn_model(input_shape, num_classes, use_dropout=False)
-    model1 = compile_model(model1, learning_rate=0.001)
-    history1 = model1.fit(x_train, y_train, epochs=10, batch_size=64,
-                          validation_data=(x_val, y_val), verbose=0)
+    model1 = compile_model(
+    model1,
+    learning_rate=DEFAULT_LEARNING_RATE
+    )
+
+    history1 = model1.fit(
+    x_train,
+    y_train,
+    epochs=EXPERIMENT_EPOCHS,
+    batch_size=EXPERIMENT_BATCH_SIZE,
     loss1, acc1 = model1.evaluate(x_test, y_test, verbose=0)
     results.append(('无Dropout', acc1))
     print(f"测试准确率: {acc1:.4f}")
 
     # 实验2：添加Dropout
-    print("\n【实验2】添加Dropout(0.5)")
-    model2 = create_cnn_model(input_shape, num_classes, use_dropout=True, dropout_rate=0.5)
-    model2 = compile_model(model2, learning_rate=0.001)
-    history2 = model2.fit(x_train, y_train, epochs=10, batch_size=64,
+    print(f"\n【实验2】添加Dropout({DEFAULT_DROPOUT_RATE})")
+
+    model2 = create_cnn_model(
+    input_shape,
+    num_classes,
+    use_dropout=True,
+    dropout_rate=DEFAULT_DROPOUT_RATE
+    )
+
+    model2 = compile_model(
+    model2,
+    learning_rate=DEFAULT_LEARNING_RATE
+    )
+
+    history2 = model2.fit(
+    x_train,
+    y_train,
+    epochs=EXPERIMENT_EPOCHS,
+    batch_size=EXPERIMENT_BATCH_SIZE,
                           validation_data=(x_val, y_val), verbose=0)
     loss2, acc2 = model2.evaluate(x_test, y_test, verbose=0)
     results.append(('Dropout(0.5)', acc2))
     print(f"测试准确率: {acc2:.4f}")
 
     # 实验3：不同学习率
-    print("\n【实验3】学习率0.0001")
-    model3 = create_cnn_model(input_shape, num_classes, use_dropout=True)
-    model3 = compile_model(model3, learning_rate=0.0001)
-    history3 = model3.fit(x_train, y_train, epochs=10, batch_size=64,
+    print(f"\n【实验3】学习率{LOW_LEARNING_RATE}")
+
+    model3 = compile_model(
+    model3,
+    learning_rate=LOW_LEARNING_RATE
+    )
+
+    history3 = model3.fit(
+    x_train,
+    y_train,
+    epochs=EXPERIMENT_EPOCHS,
+    batch_size=EXPERIMENT_BATCH_SIZE,
                           validation_data=(x_val, y_val), verbose=0)
     loss3, acc3 = model3.evaluate(x_test, y_test, verbose=0)
     results.append(('LR=0.0001', acc3))
