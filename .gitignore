@@ -1,0 +1,22 @@
+# Environment variables
+.env
+.env.local
+
+# Secret keys
+*.pem
+*.key
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Node.js dependencies
+node_modules/
+
+# IDE files
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
