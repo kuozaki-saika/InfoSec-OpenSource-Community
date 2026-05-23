@@ -1,0 +1,18 @@
+# Python 运行时缓存
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 实验输出（模型权重、可视化图片）
+*.h5
+*.keras
+*.png
+*.jpg
+
+# 日志与数据集目录
+logs/
+data/
+
+# IDE 配置
+.vscode/
+.idea/
