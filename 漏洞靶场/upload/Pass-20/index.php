@@ -1,8 +1,11 @@
-<?php
+﻿<?php
 include '../config.php';
 include '../common.php';
 include '../head.php';
 include '../menu.php';
+require_once __DIR__ . '/../access_control.php';
+check_pass_access('Pass-20');
+
 
 $is_upload = false;
 $msg = null;
@@ -12,11 +15,11 @@ if (isset($_POST['submit'])) {
 
         /*
         $file_name = trim($_POST['save_name']);
-        $file_name = deldot($file_name);//删除文件名末尾的点
+        $file_name = deldot($file_name);//鍒犻櫎鏂囦欢鍚嶆湯灏剧殑鐐?
         $file_ext = pathinfo($file_name,PATHINFO_EXTENSION);
-        $file_ext = strtolower($file_ext); //转换为小写
-        $file_ext = str_ireplace('::$DATA', '', $file_ext);//去除字符串::$DATA
-        $file_ext = trim($file_ext); //首尾去空
+        $file_ext = strtolower($file_ext); //杞崲涓哄皬鍐?
+        $file_ext = str_ireplace('::$DATA', '', $file_ext);//鍘婚櫎瀛楃涓?:$DATA
+        $file_ext = trim($file_ext); //棣栧熬鍘荤┖
         */
 
         $file_name = $_POST['save_name'];
@@ -28,14 +31,14 @@ if (isset($_POST['submit'])) {
             if (move_uploaded_file($temp_file, $img_path)) { 
                 $is_upload = true;
             }else{
-                $msg = '上传出错！';
+                $msg = '涓婁紶鍑洪敊锛?;
             }
         }else{
-            $msg = '禁止保存为该类型文件！';
+            $msg = '绂佹淇濆瓨涓鸿绫诲瀷鏂囦欢锛?;
         }
 
     } else {
-        $msg = UPLOAD_PATH . '文件夹不存在,请手工创建！';
+        $msg = UPLOAD_PATH . '鏂囦欢澶逛笉瀛樺湪,璇锋墜宸ュ垱寤猴紒';
     }
 }
 ?>
@@ -43,22 +46,22 @@ if (isset($_POST['submit'])) {
 <div id="upload_panel">
     <ol>
         <li>
-            <h3>任务</h3>
-            <p>上传一个<code>webshell</code>到服务器。</p>
+            <h3>浠诲姟</h3>
+            <p>涓婁紶涓€涓?code>webshell</code>鍒版湇鍔″櫒銆?/p>
         </li>
         <li>
-            <h3>上传区</h3>
+            <h3>涓婁紶鍖?/h3>
             <form enctype="multipart/form-data" method="post">
-                <p>请选择要上传的图片：<p>
+                <p>璇烽€夋嫨瑕佷笂浼犵殑鍥剧墖锛?p>
                 <input class="input_file" type="file" name="upload_file"/>
-                <p>保存名称:<p>
+                <p>淇濆瓨鍚嶇О:<p>
                 <input class="input_text" type="text" name="save_name" value="upload-19.jpg" /><br/>
-                <input class="button" type="submit" name="submit" value="上传"/>
+                <input class="button" type="submit" name="submit" value="涓婁紶"/>
             </form>
             <div id="msg">
                 <?php 
                     if($msg != null){
-                        echo "提示：".$msg;
+                        echo "鎻愮ず锛?.$msg;
                     }
                 ?>
             </div>

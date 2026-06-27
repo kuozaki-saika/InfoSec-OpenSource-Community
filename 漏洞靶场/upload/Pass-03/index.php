@@ -1,8 +1,11 @@
-<?php
+﻿<?php
 include '../config.php';
 include '../common.php';
 include '../head.php';
 include '../menu.php';
+require_once __DIR__ . '/../access_control.php';
+check_pass_access('Pass-03');
+
 
 $is_upload = false;
 $msg = null;
@@ -10,11 +13,11 @@ if (isset($_POST['submit'])) {
     if (file_exists(UPLOAD_PATH)) {
         $deny_ext = array('.asp','.aspx','.php','.jsp');
         $file_name = trim($_FILES['upload_file']['name']);
-        $file_name = deldot($file_name);//删除文件名末尾的点
+        $file_name = deldot($file_name);//鍒犻櫎鏂囦欢鍚嶆湯灏剧殑鐐?
         $file_ext = strrchr($file_name, '.');
-        $file_ext = strtolower($file_ext); //转换为小写
-        $file_ext = str_ireplace('::$DATA', '', $file_ext);//去除字符串::$DATA
-        $file_ext = trim($file_ext); //收尾去空
+        $file_ext = strtolower($file_ext); //杞崲涓哄皬鍐?
+        $file_ext = str_ireplace('::$DATA', '', $file_ext);//鍘婚櫎瀛楃涓?:$DATA
+        $file_ext = trim($file_ext); //鏀跺熬鍘荤┖
 
         if(!in_array($file_ext, $deny_ext)) {
             $temp_file = $_FILES['upload_file']['tmp_name'];
@@ -22,13 +25,13 @@ if (isset($_POST['submit'])) {
             if (move_uploaded_file($temp_file,$img_path)) {
                  $is_upload = true;
             } else {
-                $msg = '上传出错！';
+                $msg = '涓婁紶鍑洪敊锛?;
             }
         } else {
-            $msg = '不允许上传.asp,.aspx,.php,.jsp后缀文件！';
+            $msg = '涓嶅厑璁镐笂浼?asp,.aspx,.php,.jsp鍚庣紑鏂囦欢锛?;
         }
     } else {
-        $msg = UPLOAD_PATH . '文件夹不存在,请手工创建！';
+        $msg = UPLOAD_PATH . '鏂囦欢澶逛笉瀛樺湪,璇锋墜宸ュ垱寤猴紒';
     }
 }
 ?>
@@ -36,20 +39,20 @@ if (isset($_POST['submit'])) {
 <div id="upload_panel">
     <ol>
         <li>
-            <h3>任务</h3>
-            <p>上传一个<code>webshell</code>到服务器。</p>
+            <h3>浠诲姟</h3>
+            <p>涓婁紶涓€涓?code>webshell</code>鍒版湇鍔″櫒銆?/p>
         </li>
         <li>
-            <h3>上传区</h3>
+            <h3>涓婁紶鍖?/h3>
             <form enctype="multipart/form-data" method="post" onsubmit="return checkFile()">
-                <p>请选择要上传的图片：<p>
+                <p>璇烽€夋嫨瑕佷笂浼犵殑鍥剧墖锛?p>
                 <input class="input_file" type="file" name="upload_file"/>
-                <input class="button" type="submit" name="submit" value="上传"/>
+                <input class="button" type="submit" name="submit" value="涓婁紶"/>
             </form>
             <div id="msg">
                 <?php 
                     if($msg != null){
-                        echo "提示：".$msg;
+                        echo "鎻愮ず锛?.$msg;
                     }
                 ?>
             </div>

@@ -1,7 +1,10 @@
-<?php
+﻿<?php
 session_start();
 
 define('USERS_FILE', __DIR__ . '/users.json');
+
+define('ROLE_USER', 'user');
+define('ROLE_ADMIN', 'admin');
 
 if (!file_exists(USERS_FILE)) {
     file_put_contents(USERS_FILE, json_encode([]));
@@ -28,6 +31,18 @@ function create_user($username, $password) {
     $users[] = [
         'username' => $username,
         'password' => password_hash($password, PASSWORD_BCRYPT),
+        'role' => ROLE_USER,
+        'created_at' => date('Y-m-d H:i:s')
+    ];
+    save_users($users);
+}
+
+function create_user_with_role($username, $password, $role = ROLE_USER) {
+    $users = get_users();
+    $users[] = [
+        'username' => $username,
+        'password' => password_hash($password, PASSWORD_BCRYPT),
+        'role' => $role,
         'created_at' => date('Y-m-d H:i:s')
     ];
     save_users($users);
@@ -38,4 +53,15 @@ function require_login() {
         header('Location: ' . APP_URL_ROOT . '/login.php');
         exit;
     }
+}
+
+function get_current_user() {
+    if (!isset($_SESSION['auth_user'])) return null;
+    return find_user($_SESSION['auth_user']);
+}
+
+function get_current_role() {
+    $user = get_current_user();
+    if (!$user) return null;
+    return $user['role'] ?? ROLE_USER;
 }
