@@ -7,6 +7,12 @@
 <link rel="stylesheet" type="text/css" href="<?php echo APP_URL_ROOT;?>/css/index.css">
 <link rel="stylesheet" type="text/css" href="<?php echo APP_URL_ROOT;?>/css/prism.css">
 <body>
+<?php
+$current = basename($_SERVER['SCRIPT_NAME']);
+if ($current !== 'login.php' && $current !== 'register.php') {
+    require_login();
+}
+?>
 	<div id="head">
 		<a href="<?php echo APP_URL_ROOT;?>/"><img src="<?php echo APP_URL_ROOT;?>/img/logo.png"/></a>
 		<div id="head_menu">

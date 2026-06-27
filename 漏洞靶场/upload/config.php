@@ -9,4 +9,5 @@ define("APP_URL_ROOT",str_replace(WWW_ROOT,"",APP_ROOT));
 define("INC_VUL_PATH",APP_URL_ROOT . "/include.php");
 //设置上传目录
 define("UPLOAD_PATH", "../upload");
+require_once __DIR__ . "/auth.php";
 ?>
