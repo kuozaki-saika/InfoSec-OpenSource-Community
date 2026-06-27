@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = '用户名已存在';
     } else {
         create_user($username, $password);
-        header('Location: login.php');
+        header('Location: ' . APP_URL_ROOT . '/login.php');
         exit;
     }
 }

@@ -19,6 +19,10 @@ if ($current !== 'login.php' && $current !== 'register.php') {
 			<a id="handle_code" href="javascript:show_code()">显示源码</a>
 			<a href="javascript:get_prompt()">查看提示</a>
 			<a href="javascript:clean_upload_file()">清空上传文件</a>
+			<?php if (isset($_SESSION['auth_user'])): ?>
+				<span style="color:#fff;margin-left:12px"><?php echo htmlspecialchars($_SESSION['auth_user']); ?></span>
+				<a href="<?php echo APP_URL_ROOT;?>/logout.php">退出</a>
+			<?php endif; ?>
 		</div>
 	</div>
 	<div id="main">

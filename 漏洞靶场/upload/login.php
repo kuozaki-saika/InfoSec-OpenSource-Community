@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = find_user($username);
         if ($user && password_verify($password, $user['password'])) {
             session_regenerate_id(true);
-            $_SESSION['user'] = $user['username'];
+            $_SESSION['auth_user'] = $user['username'];
             header('Location: ' . APP_URL_ROOT . '/index.php');
             exit;
         }

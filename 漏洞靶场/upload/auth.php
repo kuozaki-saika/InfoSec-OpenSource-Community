@@ -34,7 +34,7 @@ function create_user($username, $password) {
 }
 
 function require_login() {
-    if (!isset($_SESSION['user'])) {
+    if (!isset($_SESSION['auth_user'])) {
         header('Location: ' . APP_URL_ROOT . '/login.php');
         exit;
     }
