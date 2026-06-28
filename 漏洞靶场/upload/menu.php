@@ -1,4 +1,4 @@
-﻿<div id="menu">     
+<div id="menu">     
 	<ul id="menulist">
 <?php
 require_once __DIR__ . '/access_config.php';

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $current = basename($_SERVER['SCRIPT_NAME']);
 if ($current !== 'login.php' && $current !== 'register.php') {
     require_login();

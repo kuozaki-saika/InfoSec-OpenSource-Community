@@ -212,17 +212,3 @@ git config user.email "xu_yuanhao@example.com"
 
 > **交互记录：** AI 在批量处理时检测到了文件缺失，并主动报告了这个问题。
 
----
-
-## 四、云平台提交说明
-
-以上 Prompt 文本、代码片段和问题记录均可在 GitHub 仓库的 docs/prompt-records.md 中查看。为满足云平台提交要求，建议：
-
-1. **截图方式：** 对本对话的关键部分进行截图（Ctrl+PrtSc 或 Snipaste）
-2. **复制粘贴：** 将上述内容复制到 Word 文档中提交到云平台
-3. **关键截图点：**
-   - Prompt 1：分工方案讨论
-   - Prompt 2：确认徐元昊角色
-   - Prompt 4：Git 分支操作指导
-   - Prompt 5：权限控制代码生成结果
-   - 问题 2：Git 提交失败及解决过程
