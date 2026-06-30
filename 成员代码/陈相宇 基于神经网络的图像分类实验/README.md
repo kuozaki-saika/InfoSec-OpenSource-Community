@@ -1,7 +1,36 @@
-```markdown
-# 实验一：基于神经网络的图像分类实验
+# 实验一：基于神经网络的图像分类实验（含安全模块）
 
 基于 TensorFlow 2.x 的 CNN 图像分类完整实验流程，支持 MNIST 与 CIFAR-10 数据集，涵盖环境验证、数据预处理、模型搭建、训练调优、性能评估及可视化分析。
+
+**新增安全模块**：集成密码管理、安全扫描、文档汇总等功能（成员5：陈相宇）。
+
+---
+
+## 项目结构
+
+```
+.
+├── main.py                  # 主程序入口（集成菜单）
+├── cnn_classifier.py        # CNN 图像分类核心代码
+├── README.md                # 本说明文档
+├── security/                # 安全模块
+│   ├── __init__.py          # 模块初始化
+│   ├── password_manager.py  # 密码管理（注册/登录/重置/2FA）
+│   └── security_scanner.py  # 安全扫描工具（审计+报告生成）
+├── docs/                    # 安全文档
+│   ├── risk-analysis.md     # 风险分析报告
+│   ├── constraint-doc.md    # 约束文档
+│   └── checklist.md         # 安全检查清单
+├── reports/                 # 安全扫描报告输出（自动生成）
+│   ├── security_scan_*.json
+│   ├── security_summary_*.md
+│   └── security_checklist.md
+├── best_model.h5            # 最佳模型（运行后生成）
+├── mnist_final_model.h5     # 最终模型（运行后生成）
+├── mnist_training_history.png
+├── mnist_confusion_matrix.png
+└── mnist_error_samples.png
+```
 
 ---
 
@@ -17,9 +46,77 @@ pip install tensorflow numpy matplotlib seaborn scikit-learn
 
 ---
 
-## 代码文件说明
+## 快速开始
 
-- `cnn_classification.py`：主程序文件，包含以下核心模块。
+### 运行集成菜单（推荐）
+
+```bash
+python main.py
+```
+
+启动后将显示功能菜单：
+1. **图像分类实验** — 运行 MNIST 或 CIFAR-10 CNN 分类
+2. **密码管理系统** — 用户注册、登录、密码重置（含安全控制点验证）
+3. **安全扫描工具** — 代码审计 + 自动生成 reports/ 报告
+4. **安全文档** — 查看 risk-analysis、constraint-doc、checklist
+
+### 仅运行图像分类
+
+```bash
+python cnn_classifier.py
+```
+
+### 仅运行密码管理演示
+
+```bash
+python -m security.password_manager
+```
+
+### 仅运行安全扫描
+
+```bash
+python -m security.security_scanner
+```
+
+---
+
+## 安全模块说明（成员5：陈相宇）
+
+### 1. 密码管理系统 (`security/password_manager.py`)
+
+| 功能 | 说明 |
+|:---|:---|
+| 用户注册 | 含密保问题设置（≥3个），密码强度评估与强制执行 |
+| 用户登录 | 5次失败锁定15分钟，冷却延时防暴力破解 |
+| 密码重置 | 密保验证 → 二次身份确认 → 策略检查 → 历史检查 |
+| 密码哈希 | SHA-256 + 独立盐值 + 100K次迭代（PBKDF2风格） |
+| 安全控制点 | 密保验证、二次确认码、密码策略、防枚举攻击 |
+
+### 2. 安全扫描工具 (`security/security_scanner.py`)
+
+| 扫描模块 | 说明 |
+|:---|:---|
+| 危险函数扫描 | 检测 eval/exec/os.system 等不安全调用 |
+| 硬编码密钥扫描 | 检测代码中的密码/API密钥/Token硬编码 |
+| 最佳实践检查 | CSRF防护、SQL注入防护、密码哈希、输入验证等8项 |
+| 密码策略合规 | 自动检测代码中定义的密码安全策略 |
+| 依赖安全分析 | 检测依赖库的已知CVE漏洞 |
+
+### 3. 文档汇总 (`docs/`)
+
+| 文档 | 内容 |
+|:---|:---|
+| `risk-analysis.md` | 8项风险详细分析（含缓解措施） |
+| `constraint-doc.md` | 技术约束、业务逻辑约束、安全设计约束 |
+| `checklist.md` | 43项安全检查清单（完成率74.4%） |
+
+### 4. 安全控制点
+
+- ✅ 密码重置逻辑验证（密保问题 ≥2个正确答案）
+- ✅ 二次身份确认（6位数字验证码，5分钟有效期）
+- ✅ 暴力破解防护（登录尝试限制 + 冷却延时）
+- ✅ 防止用户名枚举攻击（统一错误消息 + 统一延时）
+- ✅ 密码历史检查（防止密码重用）
 
 ---
 
@@ -134,7 +231,7 @@ pip install tensorflow numpy matplotlib seaborn scikit-learn
 ### 运行默认实验（MNIST）
 
 ```bash
-python cnn_classification.py
+python cnn_classifier.py
 ```
 
 ### 切换至 CIFAR-10 数据集
@@ -173,21 +270,6 @@ LEARNING_RATE = 0.001
 
 ---
 
-## 项目结构建议
-
-```
-.
-├── cnn_classification.py   # 主程序（单文件完整版）
-├── README.md               # 本说明文档
-├── best_model.h5           # 最佳模型（运行后生成）
-├── mnist_final_model.h5    # 最终模型（运行后生成）
-├── mnist_training_history.png
-├── mnist_confusion_matrix.png
-└── mnist_error_samples.png
-```
-
----
-
 ## 实验要点总结
 
 1. **数据预处理**：归一化与维度扩展是 CNN 输入的关键准备步骤。
@@ -201,4 +283,3 @@ LEARNING_RATE = 0.001
 ## License
 
 本项目仅供学习与研究使用。
-```

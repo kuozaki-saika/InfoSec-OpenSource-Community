@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Project specific
+*.h5
+*.pth
+*.png
+reports/*.json
+user_credentials.json
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Claude
+.claude/
+
+# Test
+.pytest_cache/

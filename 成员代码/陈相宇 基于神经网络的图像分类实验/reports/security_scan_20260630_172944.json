@@ -1,0 +1,259 @@
+{
+  "scan_time": "2026-06-30T17:29:44.029861",
+  "scan_duration_seconds": 0.030825,
+  "project_root": ".",
+  "dangerous_functions": [
+    {
+      "type": "dangerous_function",
+      "file": "cnn_classifier.py",
+      "line": 165,
+      "code": "model.compile(",
+      "function": "compile(",
+      "severity": "high",
+      "recommendation": "检查 compile( 调用是否安全，考虑使用更安全的替代方案"
+    },
+    {
+      "type": "dangerous_function",
+      "file": "security\\security_scanner.py",
+      "line": 40,
+      "code": "'exec(', 'eval(', '__import__', 'compile(',",
+      "function": "exec(",
+      "severity": "high",
+      "recommendation": "检查 exec( 调用是否安全，考虑使用更安全的替代方案"
+    },
+    {
+      "type": "dangerous_function",
+      "file": "security\\security_scanner.py",
+      "line": 40,
+      "code": "'exec(', 'eval(', '__import__', 'compile(',",
+      "function": "eval(",
+      "severity": "high",
+      "recommendation": "检查 eval( 调用是否安全，考虑使用更安全的替代方案"
+    },
+    {
+      "type": "dangerous_function",
+      "file": "security\\security_scanner.py",
+      "line": 40,
+      "code": "'exec(', 'eval(', '__import__', 'compile(',",
+      "function": "__import__",
+      "severity": "high",
+      "recommendation": "检查 __import__ 调用是否安全，考虑使用更安全的替代方案"
+    },
+    {
+      "type": "dangerous_function",
+      "file": "security\\security_scanner.py",
+      "line": 40,
+      "code": "'exec(', 'eval(', '__import__', 'compile(',",
+      "function": "compile(",
+      "severity": "high",
+      "recommendation": "检查 compile( 调用是否安全，考虑使用更安全的替代方案"
+    },
+    {
+      "type": "dangerous_function",
+      "file": "security\\security_scanner.py",
+      "line": 41,
+      "code": "'os.system(', 'os.popen(', 'subprocess.call(',",
+      "function": "os.system(",
+      "severity": "high",
+      "recommendation": "检查 os.system( 调用是否安全，考虑使用更安全的替代方案"
+    },
+    {
+      "type": "dangerous_function",
+      "file": "security\\security_scanner.py",
+      "line": 41,
+      "code": "'os.system(', 'os.popen(', 'subprocess.call(',",
+      "function": "os.popen(",
+      "severity": "high",
+      "recommendation": "检查 os.popen( 调用是否安全，考虑使用更安全的替代方案"
+    },
+    {
+      "type": "dangerous_function",
+      "file": "security\\security_scanner.py",
+      "line": 41,
+      "code": "'os.system(', 'os.popen(', 'subprocess.call(',",
+      "function": "subprocess.call(",
+      "severity": "high",
+      "recommendation": "检查 subprocess.call( 调用是否安全，考虑使用更安全的替代方案"
+    },
+    {
+      "type": "dangerous_function",
+      "file": "security\\security_scanner.py",
+      "line": 42,
+      "code": "'subprocess.Popen(', 'subprocess.run(',",
+      "function": "subprocess.Popen(",
+      "severity": "high",
+      "recommendation": "检查 subprocess.Popen( 调用是否安全，考虑使用更安全的替代方案"
+    },
+    {
+      "type": "dangerous_function",
+      "file": "security\\security_scanner.py",
+      "line": 42,
+      "code": "'subprocess.Popen(', 'subprocess.run(',",
+      "function": "subprocess.run(",
+      "severity": "high",
+      "recommendation": "检查 subprocess.run( 调用是否安全，考虑使用更安全的替代方案"
+    },
+    {
+      "type": "dangerous_function",
+      "file": "security\\security_scanner.py",
+      "line": 43,
+      "code": "'pickle.load', 'pickle.loads',",
+      "function": "pickle.load",
+      "severity": "high",
+      "recommendation": "检查 pickle.load 调用是否安全，考虑使用更安全的替代方案"
+    },
+    {
+      "type": "dangerous_function",
+      "file": "security\\security_scanner.py",
+      "line": 43,
+      "code": "'pickle.load', 'pickle.loads',",
+      "function": "pickle.loads",
+      "severity": "high",
+      "recommendation": "检查 pickle.loads 调用是否安全，考虑使用更安全的替代方案"
+    },
+    {
+      "type": "dangerous_function",
+      "file": "security\\security_scanner.py",
+      "line": 44,
+      "code": "'yaml.load(',  # 不带 SafeLoader 的 yaml.load",
+      "function": "yaml.load(",
+      "severity": "high",
+      "recommendation": "检查 yaml.load( 调用是否安全，考虑使用更安全的替代方案"
+    },
+    {
+      "type": "dangerous_function",
+      "file": "security\\security_scanner.py",
+      "line": 45,
+      "code": "'marshal.loads',",
+      "function": "marshal.loads",
+      "severity": "high",
+      "recommendation": "检查 marshal.loads 调用是否安全，考虑使用更安全的替代方案"
+    }
+  ],
+  "hardcoded_secrets": [],
+  "best_practices": {
+    "csrf_protection": {
+      "name": "CSRF 防护",
+      "severity": "high",
+      "implemented": true,
+      "evidence": [
+        "csrf",
+        "CsrfViewMiddleware",
+        "@csrf_protect"
+      ],
+      "recommendation": "[PASS] CSRF 防护 已实现"
+    },
+    "sql_injection_protection": {
+      "name": "SQL 注入防护",
+      "severity": "critical",
+      "implemented": true,
+      "evidence": [
+        "parameterized",
+        "\\.bindparam"
+      ],
+      "recommendation": "[PASS] SQL 注入防护 已实现"
+    },
+    "password_hashing": {
+      "name": "密码哈希",
+      "severity": "critical",
+      "implemented": true,
+      "evidence": [
+        "hashlib",
+        "bcrypt",
+        "PBKDF2",
+        "argon2",
+        "scrypt"
+      ],
+      "recommendation": "[PASS] 密码哈希 已实现"
+    },
+    "input_validation": {
+      "name": "输入验证",
+      "severity": "high",
+      "implemented": true,
+      "evidence": [
+        "\\.strip\\(\\)",
+        "\\.validate",
+        "clean_data",
+        "sanitize"
+      ],
+      "recommendation": "[PASS] 输入验证 已实现"
+    },
+    "error_handling": {
+      "name": "错误处理",
+      "severity": "medium",
+      "implemented": true,
+      "evidence": [
+        "try\\s*:",
+        "except",
+        "finally"
+      ],
+      "recommendation": "[PASS] 错误处理 已实现"
+    },
+    "rate_limiting": {
+      "name": "速率限制",
+      "severity": "high",
+      "implemented": true,
+      "evidence": [
+        "rate_limit",
+        "throttle",
+        "MAX_LOGIN_ATTEMPTS",
+        "LOCKOUT"
+      ],
+      "recommendation": "[PASS] 速率限制 已实现"
+    },
+    "session_security": {
+      "name": "会话安全",
+      "severity": "medium",
+      "implemented": true,
+      "evidence": [
+        "SESSION_COOKIE_SECURE",
+        "SESSION_COOKIE_HTTPONLY"
+      ],
+      "recommendation": "[PASS] 会话安全 已实现"
+    },
+    "file_upload_security": {
+      "name": "文件上传安全",
+      "severity": "high",
+      "implemented": true,
+      "evidence": [
+        "ALLOWED_EXTENSIONS",
+        "FileExtensionValidator",
+        "mime_type"
+      ],
+      "recommendation": "[PASS] 文件上传安全 已实现"
+    }
+  },
+  "password_policy": {
+    "scan_time": "2026-06-30T17:29:44.059687",
+    "recommended_policy": {
+      "min_length": 8,
+      "max_length": 128,
+      "require_uppercase": true,
+      "require_lowercase": true,
+      "require_digit": true,
+      "require_special": true,
+      "max_attempts": 5,
+      "lockout_minutes": 15,
+      "password_history": 5
+    },
+    "found_policies": {
+      "MIN_PASSWORD_LENGTH": 8,
+      "LOCKOUT_DURATION_MINUTES": 15,
+      "LOCKOUT_COOLDOWN_SECONDS": 2
+    }
+  },
+  "dependencies": {
+    "dependencies": [],
+    "vulnerable": []
+  },
+  "security_score": {
+    "total_score": 80,
+    "grade": "良好 (B)",
+    "breakdown": {
+      "dangerous_functions_penalty": 30,
+      "hardcoded_secrets_penalty": 0,
+      "best_practices_bonus": 10,
+      "dependency_penalty": 0
+    }
+  }
+}
