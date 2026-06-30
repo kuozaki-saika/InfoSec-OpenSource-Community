@@ -1,0 +1,94 @@
+{
+  "scan_time": "2026-06-30T17:30:25.121746",
+  "scan_duration_seconds": 0.007001,
+  "project_root": ".",
+  "dangerous_functions": [],
+  "hardcoded_secrets": [],
+  "best_practices": {
+    "csrf_protection": {
+      "name": "CSRF 防护",
+      "severity": "high",
+      "implemented": false,
+      "evidence": [],
+      "recommendation": "[WARN] 建议实现 CSRF 防护 安全措施"
+    },
+    "sql_injection_protection": {
+      "name": "SQL 注入防护",
+      "severity": "critical",
+      "implemented": false,
+      "evidence": [],
+      "recommendation": "[WARN] 建议实现 SQL 注入防护 安全措施"
+    },
+    "password_hashing": {
+      "name": "密码哈希",
+      "severity": "critical",
+      "implemented": false,
+      "evidence": [],
+      "recommendation": "[WARN] 建议实现 密码哈希 安全措施"
+    },
+    "input_validation": {
+      "name": "输入验证",
+      "severity": "high",
+      "implemented": false,
+      "evidence": [],
+      "recommendation": "[WARN] 建议实现 输入验证 安全措施"
+    },
+    "error_handling": {
+      "name": "错误处理",
+      "severity": "medium",
+      "implemented": false,
+      "evidence": [],
+      "recommendation": "[WARN] 建议实现 错误处理 安全措施"
+    },
+    "rate_limiting": {
+      "name": "速率限制",
+      "severity": "high",
+      "implemented": false,
+      "evidence": [],
+      "recommendation": "[WARN] 建议实现 速率限制 安全措施"
+    },
+    "session_security": {
+      "name": "会话安全",
+      "severity": "medium",
+      "implemented": false,
+      "evidence": [],
+      "recommendation": "[WARN] 建议实现 会话安全 安全措施"
+    },
+    "file_upload_security": {
+      "name": "文件上传安全",
+      "severity": "high",
+      "implemented": false,
+      "evidence": [],
+      "recommendation": "[WARN] 建议实现 文件上传安全 安全措施"
+    }
+  },
+  "password_policy": {
+    "scan_time": "2026-06-30T17:30:25.128747",
+    "recommended_policy": {
+      "min_length": 8,
+      "max_length": 128,
+      "require_uppercase": true,
+      "require_lowercase": true,
+      "require_digit": true,
+      "require_special": true,
+      "max_attempts": 5,
+      "lockout_minutes": 15,
+      "password_history": 5
+    },
+    "found_policies": {}
+  },
+  "dependencies": {
+    "dependencies": [],
+    "vulnerable": []
+  },
+  "security_score": {
+    "total_score": 100,
+    "grade": "优秀 (A)",
+    "breakdown": {
+      "dangerous_functions_penalty": 0,
+      "hardcoded_secrets_penalty": 0,
+      "best_practices_bonus": 0,
+      "dependency_penalty": 0
+    }
+  }
+}
