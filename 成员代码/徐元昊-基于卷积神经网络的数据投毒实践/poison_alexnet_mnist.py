@@ -177,6 +177,8 @@ loss_fn = torch.nn.CrossEntropyLoss().to(device)
 
 #每次的准确率
 clean_acc_list = []
+#每次的损失率
+loss_list = []
 
 # 使用带有动量的Adam优化器对模型优化
 optimizer = torch.optim.Adam(net.parameters(), lr=0.001)
@@ -210,7 +212,10 @@ for epoch in range(epoch):
 
         running_loss += loss.item()
 
-
+    # 计算平均损失并记录
+    avg_loss = running_loss / len(trainset_dataloader)
+    loss_list.append(avg_loss)
+    
     #输出每一轮loss值
     print("Epoch: {}, loss: {}".format(epoch + 1, running_loss))
     file.write("Epoch: " + str(epoch + 1) + ", loss: " + str(running_loss) + "\n")
@@ -231,10 +236,10 @@ for epoch in range(epoch):
     clean_acc_list.append(clean_acc)
     print("干净样本准确率为: " + str(clean_acc) + '%\n')
 
-    # 展示错误分类的图片
-    plot_misclassified_images(net, clean_testset, device)
-    # 展示正确分类的图片
-    plot_correctly_classified_images(net, clean_testset, device, num_images=10)
+# 展示错误分类的图片
+plot_misclassified_images(net, clean_testset, device)
+# 展示正确分类的图片
+plot_correctly_classified_images(net, clean_testset, device, num_images=10)
 
 # 关闭文件
 file.close()
@@ -252,3 +257,13 @@ plt.xlabel("Epoch")
 plt.ylabel("Accuracy (%)")
 plt.grid(True)
 plt.show()
+
+# 绘制损失曲线 
+plt.figure(figsize=(8, 6))
+plt.plot(range(1, len(loss_list) + 1), loss_list, marker='s', linestyle='-', color='r')
+plt.title("Training Loss (Average per Epoch)")
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.grid(True)
+plt.show()
+
