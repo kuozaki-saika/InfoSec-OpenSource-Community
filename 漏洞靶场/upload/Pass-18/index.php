@@ -2,6 +2,9 @@
 include '../config.php';
 include '../head.php';
 include '../menu.php';
+require_once __DIR__ . '/../access_control.php';
+check_pass_access('Pass-18');
+
 
 $is_upload = false;
 $msg = null;
@@ -19,11 +22,11 @@ if(isset($_POST['submit'])){
              rename($upload_file, $img_path);
              $is_upload = true;
         }else{
-            $msg = "只允许上传.jpg|.png|.gif类型文件！";
+            $msg = "鍙厑璁镐笂浼?jpg|.png|.gif绫诲瀷鏂囦欢锛?;
             unlink($upload_file);
         }
     }else{
-        $msg = '上传出错！';
+        $msg = '涓婁紶鍑洪敊锛?;
     }
 }
 ?>
@@ -31,20 +34,20 @@ if(isset($_POST['submit'])){
 <div id="upload_panel">
     <ol>
         <li>
-            <h3>任务</h3>
-            <p>上传一个<code>webshell</code>到服务器。</p>
+            <h3>浠诲姟</h3>
+            <p>涓婁紶涓€涓?code>webshell</code>鍒版湇鍔″櫒銆?/p>
         </li>
         <li>
-            <h3>上传区</h3>
+            <h3>涓婁紶鍖?/h3>
             <form enctype="multipart/form-data" method="post">
-                <p>请选择要上传的图片：<p>
+                <p>璇烽€夋嫨瑕佷笂浼犵殑鍥剧墖锛?p>
                 <input class="input_file" type="file" name="upload_file"/>
-                <input class="button" type="submit" name="submit" value="上传"/>
+                <input class="button" type="submit" name="submit" value="涓婁紶"/>
             </form>
             <div id="msg">
                 <?php 
                     if($msg != null){
-                        echo "提示：".$msg;
+                        echo "鎻愮ず锛?.$msg;
                     }
                 ?>
             </div>

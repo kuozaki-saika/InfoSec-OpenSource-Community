@@ -2,6 +2,9 @@
 include '../config.php';
 include '../head.php';
 include '../menu.php';
+require_once __DIR__ . '/../access_control.php';
+check_pass_access('Pass-19');
+
 
 $is_upload = false;
 $msg = null;
@@ -17,28 +20,28 @@ if (isset($_POST['submit']))
             $img_path = $u->cls_upload_dir . $u->cls_file_rename_to;
             break;
         case 2:
-            $msg = '文件已经被上传，但没有重命名。';
+            $msg = '鏂囦欢宸茬粡琚笂浼狅紝浣嗘病鏈夐噸鍛藉悕銆?;
             break; 
         case -1:
-            $msg = '这个文件不能上传到服务器的临时文件存储目录。';
+            $msg = '杩欎釜鏂囦欢涓嶈兘涓婁紶鍒版湇鍔″櫒鐨勪复鏃舵枃浠跺瓨鍌ㄧ洰褰曘€?;
             break; 
         case -2:
-            $msg = '上传失败，上传目录不可写。';
+            $msg = '涓婁紶澶辫触锛屼笂浼犵洰褰曚笉鍙啓銆?;
             break; 
         case -3:
-            $msg = '上传失败，无法上传该类型文件。';
+            $msg = '涓婁紶澶辫触锛屾棤娉曚笂浼犺绫诲瀷鏂囦欢銆?;
             break; 
         case -4:
-            $msg = '上传失败，上传的文件过大。';
+            $msg = '涓婁紶澶辫触锛屼笂浼犵殑鏂囦欢杩囧ぇ銆?;
             break; 
         case -5:
-            $msg = '上传失败，服务器已经存在相同名称文件。';
+            $msg = '涓婁紶澶辫触锛屾湇鍔″櫒宸茬粡瀛樺湪鐩稿悓鍚嶇О鏂囦欢銆?;
             break; 
         case -6:
-            $msg = '文件无法上传，文件不能复制到目标目录。';
+            $msg = '鏂囦欢鏃犳硶涓婁紶锛屾枃浠朵笉鑳藉鍒跺埌鐩爣鐩綍銆?;
             break;      
         default:
-            $msg = '未知错误！';
+            $msg = '鏈煡閿欒锛?;
             break;
     }
 }
@@ -47,20 +50,20 @@ if (isset($_POST['submit']))
 <div id="upload_panel">
     <ol>
         <li>
-            <h3>任务</h3>
-            <p>上传一个<code>webshell</code>到服务器。</p>
+            <h3>浠诲姟</h3>
+            <p>涓婁紶涓€涓?code>webshell</code>鍒版湇鍔″櫒銆?/p>
         </li>
         <li>
-            <h3>上传区</h3>
+            <h3>涓婁紶鍖?/h3>
             <form enctype="multipart/form-data" method="post">
-                <p>请选择要上传的图片：<p>
+                <p>璇烽€夋嫨瑕佷笂浼犵殑鍥剧墖锛?p>
                 <input class="input_file" type="file" name="upload_file"/>
-                <input class="button" type="submit" name="submit" value="上传"/>
+                <input class="button" type="submit" name="submit" value="涓婁紶"/>
             </form>
             <div id="msg">
                 <?php 
                     if($msg != null){
-                        echo "提示：".$msg;
+                        echo "鎻愮ず锛?.$msg;
                     }
                 ?>
             </div>

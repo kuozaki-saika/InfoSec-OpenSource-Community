@@ -2,10 +2,13 @@
 include '../config.php';
 include '../head.php';
 include '../menu.php';
+require_once __DIR__ . '/../access_control.php';
+check_pass_access('Pass-14');
+
 
 function getReailFileType($filename){
     $file = fopen($filename, "rb");
-    $bin = fread($file, 2); //只读2字节
+    $bin = fread($file, 2); //鍙2瀛楄妭
     fclose($file);
     $strInfo = @unpack("C2chars", $bin);    
     $typeCode = intval($strInfo['chars1'].$strInfo['chars2']);    
@@ -33,13 +36,13 @@ if(isset($_POST['submit'])){
     $file_type = getReailFileType($temp_file);
 
     if($file_type == 'unknown'){
-        $msg = "文件未知，上传失败！";
+        $msg = "鏂囦欢鏈煡锛屼笂浼犲け璐ワ紒";
     }else{
         $img_path = UPLOAD_PATH."/".rand(10, 99).date("YmdHis").".".$file_type;
         if(move_uploaded_file($temp_file,$img_path)){
             $is_upload = true;
         } else {
-            $msg = "上传出错！";
+            $msg = "涓婁紶鍑洪敊锛?;
         }
     }
 }
@@ -48,24 +51,24 @@ if(isset($_POST['submit'])){
 <div id="upload_panel">
     <ol>
         <li>
-            <h3>任务</h3>
-            <p>上传<code>图片马</code>到服务器。</p>
-            <p>注意：</p>
-            <p>1.保证上传后的图片马中仍然包含完整的<code>一句话</code>或<code>webshell</code>代码。</p>
-            <p>2.使用<a href="<?php echo INC_VUL_PATH;?>" target="_bank">文件包含漏洞</a>能运行图片马中的恶意代码。</p>
-            <p>3.图片马要<code>.jpg</code>,<code>.png</code>,<code>.gif</code>三种后缀都上传成功才算过关！</p>
+            <h3>浠诲姟</h3>
+            <p>涓婁紶<code>鍥剧墖椹?/code>鍒版湇鍔″櫒銆?/p>
+            <p>娉ㄦ剰锛?/p>
+            <p>1.淇濊瘉涓婁紶鍚庣殑鍥剧墖椹腑浠嶇劧鍖呭惈瀹屾暣鐨?code>涓€鍙ヨ瘽</code>鎴?code>webshell</code>浠ｇ爜銆?/p>
+            <p>2.浣跨敤<a href="<?php echo INC_VUL_PATH;?>" target="_bank">鏂囦欢鍖呭惈婕忔礊</a>鑳借繍琛屽浘鐗囬┈涓殑鎭舵剰浠ｇ爜銆?/p>
+            <p>3.鍥剧墖椹<code>.jpg</code>,<code>.png</code>,<code>.gif</code>涓夌鍚庣紑閮戒笂浼犳垚鍔熸墠绠楄繃鍏筹紒</p>
         </li>
         <li>
-            <h3>上传区</h3>
+            <h3>涓婁紶鍖?/h3>
             <form enctype="multipart/form-data" method="post">
-                <p>请选择要上传的图片：<p>
+                <p>璇烽€夋嫨瑕佷笂浼犵殑鍥剧墖锛?p>
                 <input class="input_file" type="file" name="upload_file"/>
-                <input class="button" type="submit" name="submit" value="上传"/>
+                <input class="button" type="submit" name="submit" value="涓婁紶"/>
             </form>
             <div id="msg">
                 <?php 
                     if($msg != null){
-                        echo "提示：".$msg;
+                        echo "鎻愮ず锛?.$msg;
                     }
                 ?>
             </div>
